@@ -1,10 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
+const bodyParser = require('body-parser');
 
 // Variable declaration
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Body parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Custom routes
 const users = require('./routes/api/users');
