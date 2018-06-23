@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 
 // Variable declaration
 const app = express();
@@ -27,6 +28,12 @@ app.get('/', (req,res) => {
         message: 'success'
     })
 });
+
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport Config
+require('./config/passport')(passport);
 
 // Use routes
 app.use('/api/users', users);
