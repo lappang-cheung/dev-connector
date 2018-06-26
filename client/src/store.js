@@ -6,16 +6,35 @@ const initialState={};
 
 const middleware = [thunk];
 
-const composeEnhancers =
-	window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = createStore(
-    rootReducer, 
-    initialState, 
+// const composeEnhancers =
+//     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    
+if (window.navigator.userAgent.includes('Chrome')) {
+  var store = createStore(
+    rootReducer,
+    initialState,
     compose(
-        applyMiddleware(...middleware),
-        composeEnhancers
+      applyMiddleware(...middleware),
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )
-);
+  );
+} else {
+    store = createStore(
+    rootReducer,
+    initialState,
+    compose(
+        applyMiddleware(...middleware)
+    )
+  );
+}
+
+// const store = createStore(
+//     rootReducer, 
+//     initialState, 
+//     compose(
+//         applyMiddleware(...middleware),
+//         composeEnhancers
+//     )
+// );
 
 export default store;
